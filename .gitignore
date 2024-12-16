@@ -18,6 +18,7 @@
 *.ipch
 *.sqlite
 .vs/
+TicTacToe/
 
 # CMake files (if used)
 CMakeFiles/

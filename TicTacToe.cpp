@@ -3,22 +3,23 @@
 using std::cout;
 using std::endl;
 using std::setw;
+using std::string;
 
 TicTacToe::TicTacToe(int boardSize, int winRequire) 
-	: N(boardSize), M(winRequire), player1("Player 1",'X'), player2("Player 2", 'O'), currentPlayer(&player1)
+	: N(boardSize), M(winRequire), player1("Player 1", "X"), player2("Player 2", "O"), currentPlayer(&player1)
 {
 	if (N < 3 || M < 3 || M > N) // M must be between 3 and N
 	{
 		throw std::invalid_argument("Invalid board size or win requirement.");
 	}
 
-	board = std::vector<std::vector<char>>(N, std::vector<char>(N));
+	board = std::vector<std::vector<string>>(N, std::vector<string>(N));
 	int cellNumber = 1;
-	for (auto& row : board)
+	for (int i = 0; i < N; i++)
 	{
-		for (auto& cell : row)
+		for (int j = 0; j < N; j++)
 		{
-			cell = cellNumber++ + '0';
+			board[i][j] = std::to_string(cellNumber++);
 		}
 	}
 	
@@ -26,7 +27,7 @@ TicTacToe::TicTacToe(int boardSize, int winRequire)
 
 void TicTacToe::printBoard()
 {
-	cout << "Current Board:\n";
+	cout << "\nCurrent Board:\n";
 
 	for (const auto& row : board)
 	{
@@ -120,12 +121,15 @@ bool TicTacToe::checkWin(int row, int col)
 	return false;
 }
 
-void TicTacToe::makeMove(int row, int col)
+void TicTacToe::makeMove(int cell)
 {
-	if (row < 0 || row >= N || col < 0 || col >= N)
+	if (cell < 1 || cell > N * N)
 	{
-		throw std::invalid_argument("Invalid row or column.");
+		throw std::invalid_argument("Invalid cell number.");
 	}
+	
+	int row = (cell - 1) / N;
+	int col = (cell - 1) % N;
 
 	if (board[row][col] == player1.getSymbol() || board[row][col] == player2.getSymbol())
 	{
