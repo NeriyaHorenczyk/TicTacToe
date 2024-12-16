@@ -1,0 +1,22 @@
+name: C++ Build and Run
+
+on: [push, pull_request]
+
+jobs:
+  build-and-run:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up MSBuild
+      uses: microsoft/setup-msbuild@v1
+
+    - name: Build the project
+      run: |
+        MSBuild.exe TicTacToe.sln /p:Configuration=Release
+
+    - name: Run the program
+      run: |
+        .\x64\Release\tictactoe.exe

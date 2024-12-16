@@ -6,10 +6,6 @@
 /x86/
 
 # Visual Studio files
-*.sln
-*.vcxproj
-*.vcxproj.filters
-*.vcxproj.user
 *.ncb
 *.suo
 *.user
